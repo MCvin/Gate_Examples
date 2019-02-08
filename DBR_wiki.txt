@@ -1,0 +1,20 @@
+==== Dose by regions ====
+
+The dose actor can also calculate dose and energy deposited in regions defined by a set of voxels and output the result in a text file. These regions are read from a .mhd image file containing labels (integers) which must be of the same size as the dose actor. Each label in the image defines a region where all energies will be summed and the dose calculated during the simulation. This allow the calculation of the statistical uncertainties for a set of voxels.
+
+To activate this output:
+
+  /gate/actor/[Actor Name]/inputDoseByRegions     data/regionImage.mhd
+  /gate/actor/[Actor Name]/outputDoseByRegions    output/DoseByRegions.txt
+
+It is possible to define additional regions composed of original regions by specifying a new region label 
+followed by a colon and the list of original region labels:
+
+  /gate/actor/[Actor Name]/addRegion              1000: 89, 90, 91
+  /gate/actor/[Actor Name]/addRegion              1001: 92, 93, 94
+
+The output ascii file contains one line per region with the following information:
+  #id vol(mm3) edep(MeV) std_edep sq_edep dose(Gy) std_dose sq_dose n_hits n_event_hits
+  0158092650.290813.084215060780.0534746259910.4895600867871.10061390e-110.0534746259913.46402200e-2540288814
+
+
